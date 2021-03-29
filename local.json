@@ -1,0 +1,12 @@
+{
+  "cloudflare": {
+    "auth": {
+      "email": "__AUTH_EMAIL__",
+      "key": "__AUTH_KEY__"
+    },
+    "cache": {
+      "enabled": true,
+      "zoneIdentifier": "__ZONE_IDENTIFIER__"
+    }
+  }
+}
