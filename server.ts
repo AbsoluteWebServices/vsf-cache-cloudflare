@@ -28,11 +28,11 @@ serverHooks.afterCacheInvalidated(({ tags }) => {
     return
   }
 
-  const authToken = config.get('cloudflare.authToken')
+  const apiToken = config.get('cloudflare.apiToken')
   const zoneIdentifier = config.get('cloudflare.cache.zoneIdentifier')
 
-  if (!authToken || !zoneIdentifier) {
-    console.error('One or more config parameters are missing: cloudflare.authToken, cloudflare.cache.zoneIdentifier')
+  if (!apiToken || !zoneIdentifier) {
+    console.error('One or more config parameters are missing: cloudflare.apiToken, cloudflare.cache.zoneIdentifier')
     return
   }
 
@@ -41,7 +41,7 @@ serverHooks.afterCacheInvalidated(({ tags }) => {
   fetch(url, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${authToken}`,
+      'Authorization': `Bearer ${apiToken}`,
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },

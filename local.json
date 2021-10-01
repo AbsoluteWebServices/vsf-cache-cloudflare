@@ -1,6 +1,6 @@
 {
   "cloudflare": {
-    "authToken": "__AUTH_KEY__",
+    "apiToken": "__API_KEY__",
     "cache": {
       "enabled": true,
       "zoneIdentifier": "__ZONE_IDENTIFIER__"
