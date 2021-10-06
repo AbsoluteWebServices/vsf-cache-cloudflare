@@ -2,12 +2,19 @@ import { serverHooks } from '@vue-storefront/core/server/hooks'
 import fetch from 'isomorphic-fetch'
 import config from 'config'
 
-serverHooks.beforeOutputRenderedResponse(({ res, context, output }) => {
+serverHooks.beforeOutputRenderedResponse(({ req, res, context, output }) => {
   if (!config.get('cloudflare.cache.enabled') || !config.get('server.useOutputCacheTagging') || !context.output.cacheTags || context.output.cacheTags.size < 1) {
     return output
   }
 
-  const tagsArray = Array.from(context.output.cacheTags)
+  if (!config.get('amuse.env') || !req.headers['x-vs-store-code']) {
+    return output
+  }
+
+  let tagsArray = [
+    'SB' + config.get('amuse.env').toUpperCase() + req.headers['x-vs-store-code']
+  ];
+  tagsArray = tagsArray.concat(Array.from(context.output.cacheTags));
   const cacheTags = tagsArray.join(',')
   res.setHeader('Cache-Tag', cacheTags)
   console.log(`CloudFlare's cache tags for the request: ${cacheTags}`)
