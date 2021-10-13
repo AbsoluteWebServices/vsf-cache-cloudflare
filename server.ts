@@ -2,7 +2,7 @@ import { serverHooks } from '@vue-storefront/core/server/hooks'
 import fetch from 'isomorphic-fetch'
 import config from 'config'
 
-serverHooks.beforeOutputRenderedResponse(({ req, res, context, output }) => {
+serverHooks.afterOutputRenderedResponse(({ req, res, context, output }) => {
   if (!config.get('cloudflare.cache.enabled') || !config.get('server.useOutputCacheTagging') || !context.output.cacheTags || context.output.cacheTags.size < 1) {
     return output
   }
